@@ -1,31 +1,55 @@
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
+const mongoose = require('mongoose')
 const PORT = 3000
 
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({extended: true}))
+mongoose.connect('mongodb://localhost/yelp_camp', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(() => console.log('Connected to yelp_camp DB!')).catch(error => console.log(error.message))
 
-let campgrounds = [
-    {name: 'Merapi Park', image: 'https://images.pexels.com/photos/1230302/pexels-photo-1230302.jpeg?auto=compress&cs=tinysrgb&h=350'},
-    {name: 'Tidar Camp', image: 'https://images.pexels.com/photos/1061640/pexels-photo-1061640.jpeg?auto=compress&cs=tinysrgb&h=350'},
-    {name: 'Mountain Camp', image: 'https://images.pexels.com/photos/2398220/pexels-photo-2398220.jpeg?auto=compress&cs=tinysrgb&h=350'},
-    {name: 'Kaliurang Camp', image: 'https://images.pexels.com/photos/45241/tent-camp-night-star-45241.jpeg?auto=compress&cs=tinysrgb&h=350'}
-]
+let campgroundSchema = new mongoose.Schema({
+    name: String,
+    image: String
+})
+
+let Campground = mongoose.model('Campground', campgroundSchema)
 
 app.get('/', function(req, res) {
     res.render('home')
 })
 
 app.get('/campgrounds', function(req, res) {
-    res.render('campgrounds', {campgrounds: campgrounds})
+    Campground.find({}, function(err, data) {
+        if (err) {
+            console.log('Something wrong while retrieving data')
+        } else {
+            console.log('Retrieving data successful')
+            res.render('campgrounds', {campgrounds: data})
+        }
+    })
 })
 
 app.post('/campgrounds', function(req, res) {
     let name = req.body.name
     let image = req.body.image
-    campgrounds.push({name: name, image: image})
-    res.redirect('/campgrounds')
+
+    Campground.create({
+        name: name, 
+        image: image
+    }, function(err, data) {
+        if (err) {
+            console.log('Something went wrong while inserting to the database')
+            console.log(err)
+        } else {
+            console.log('Inserting data successful')
+            console.log(data)
+            res.redirect('/campgrounds')
+        }
+    })
 })
 
 app.get('/campgrounds/new', function(req, res) {
