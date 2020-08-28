@@ -13,7 +13,8 @@ mongoose.connect('mongodb://localhost/yelp_camp', {
 
 let campgroundSchema = new mongoose.Schema({
     name: String,
-    image: String
+    image: String,
+    description: String
 })
 
 let Campground = mongoose.model('Campground', campgroundSchema)
@@ -36,10 +37,12 @@ app.get('/campgrounds', function(req, res) {
 app.post('/campgrounds', function(req, res) {
     let name = req.body.name
     let image = req.body.image
+    let description = req.body.description
 
     Campground.create({
         name: name, 
-        image: image
+        image: image,
+        description: description
     }, function(err, data) {
         if (err) {
             console.log('Something went wrong while inserting to the database')
@@ -54,6 +57,18 @@ app.post('/campgrounds', function(req, res) {
 
 app.get('/campgrounds/new', function(req, res) {
     res.render('new')
+})
+
+app.get('/campgrounds/:id', function(req, res) {
+    Campground.findById({_id: req.params.id}, function(err, data) {
+        if (err) {
+            console.log('Something wrong while retrieving data')
+        } else {
+            console.log('Retrieving detailed campground info successful')
+            console.log(data)
+            res.render('camp_info', {campground: data})
+        }
+    })
 })
 
 app.get('*', function(req, res) {
