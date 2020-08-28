@@ -1,10 +1,16 @@
 <%- include('partials/header') %>
 
 <div class="container">
-    <h1><%= campground.name %></h1>
-    <img src="<%= campground.image %>">
-    <p><%= campground.description %></p>
-    <a href="/campgrounds">Go Back</a>
+    <div class="row">
+        <h1 class="col-12"><%= campground.name %></h1>
+        <div class="col-12">
+            <img class="img-fluid" alt="Responsive image" src="<%= campground.image %>">
+        </div>
+        <div class="col-12">
+            <p><%= campground.description %></p>
+        </div>
+        <a class="col-12" href="/campgrounds">Go Back</a>
+    </div>
 </div>
 
 <%- include('partials/footer') %>
