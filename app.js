@@ -11,13 +11,7 @@ mongoose.connect('mongodb://localhost/yelp_camp', {
     useUnifiedTopology: true
 }).then(() => console.log('Connected to yelp_camp DB!')).catch(error => console.log(error.message))
 
-let campgroundSchema = new mongoose.Schema({
-    name: String,
-    image: String,
-    description: String
-})
-
-let Campground = mongoose.model('Campground', campgroundSchema)
+const Campground = require('./models/campground')
 
 app.get('/', function(req, res) {
     res.render('home')
