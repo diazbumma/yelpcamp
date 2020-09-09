@@ -13,4 +13,10 @@
     </div>
 </div>
 
+<ul>
+    <% campground.comments.forEach(item => { %>
+        <li><%= item.text %> -by <%= item.author %></li>
+    <% }) %>
+</ul>
+
 <%- include('partials/footer') %>

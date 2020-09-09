@@ -12,6 +12,9 @@ mongoose.connect('mongodb://localhost/yelp_camp', {
 }).then(() => console.log('Connected to yelp_camp DB!')).catch(error => console.log(error.message))
 
 const Campground = require('./models/campground')
+const seed = require('./seeds')
+
+seed()
 
 app.get('/', function(req, res) {
     res.render('home')
@@ -54,7 +57,7 @@ app.get('/campgrounds/new', function(req, res) {
 })
 
 app.get('/campgrounds/:id', function(req, res) {
-    Campground.findById({_id: req.params.id}, function(err, data) {
+    Campground.findById({_id: req.params.id}).populate('comments').exec(function(err, data) {
         if (err) {
             console.log('Something wrong while retrieving data')
         } else {
