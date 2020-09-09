@@ -10,13 +10,14 @@
             <p><%= campground.description %></p>
         </div>
         <a class="col-12" href="/campgrounds">Go Back</a>
+        <a class="col-12" href="/campgrounds/<%= campground._id %>/comments/new">Comment</a>
     </div>
-</div>
 
-<ul>
-    <% campground.comments.forEach(item => { %>
-        <li><%= item.text %> -by <%= item.author %></li>
-    <% }) %>
-</ul>
+    <ul>
+        <% campground.comments.forEach(item => { %>
+            <li><%= item.text %> -by <%= item.author %></li>
+        <% }) %>
+    </ul>
+</div>
 
 <%- include('../partials/footer') %>
