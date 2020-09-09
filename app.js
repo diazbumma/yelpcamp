@@ -26,7 +26,7 @@ app.get('/campgrounds', function(req, res) {
             console.log('Something wrong while retrieving data')
         } else {
             console.log('Retrieving data successful')
-            res.render('campgrounds', {campgrounds: data})
+            res.render('campgrounds/campgrounds', {campgrounds: data})
         }
     })
 })
@@ -53,7 +53,7 @@ app.post('/campgrounds', function(req, res) {
 })
 
 app.get('/campgrounds/new', function(req, res) {
-    res.render('new')
+    res.render('campgrounds/new')
 })
 
 app.get('/campgrounds/:id', function(req, res) {
@@ -63,7 +63,7 @@ app.get('/campgrounds/:id', function(req, res) {
         } else {
             console.log('Retrieving detailed campground info successful')
             console.log(data)
-            res.render('camp_info', {campground: data})
+            res.render('campgrounds/camp_info', {campground: data})
         }
     })
 })
