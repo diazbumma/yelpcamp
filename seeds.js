@@ -6,7 +6,7 @@ let data = [
     {
         name: 'Green Trees Camp',
         image:'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
-        description: 'Camp at the forest side'
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fermentum turpis est, in dictum leo ornare at. Donec sed quam id leo iaculis tempus volutpat maximus metus. Vestibulum eros nibh, facilisis vitae massa vestibulum, hendrerit vestibulum dolor. Donec sit amet tortor ac neque semper egestas id vel lectus. Nunc pharetra molestie velit, maximus mattis dolor dignissim et. Nulla et mollis sem, sit amet malesuada odio. Nulla vel tristique urna. Quisque tellus lectus, tristique vitae felis quis, aliquet tempus ipsum. Fusce magna dolor, maximus non dolor eu, pulvinar lobortis elit. Aliquam in neque et ante blandit imperdiet blandit eget neque.'
     },
     {
         name: 'Forest Camp',

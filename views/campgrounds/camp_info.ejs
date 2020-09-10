@@ -2,22 +2,41 @@
 
 <div class="container">
     <div class="row">
-        <h1 class="col-12"><%= campground.name %></h1>
-        <div class="col-12">
-            <img class="img-fluid" alt="Responsive image" src="<%= campground.image %>">
+        <div class="col-md-3">
+            <h2>YelpCamp</h2>
+            <ul class="list-group">
+                <li class="list-group-item active">Info 1</li>
+                <li class="list-group-item">Info 2</li>
+                <li class="list-group-item">Info 3</li>
+            </ul>
         </div>
-        <div class="col-12">
-            <p><%= campground.description %></p>
-        </div>
-        <a class="col-12" href="/campgrounds">Go Back</a>
-        <a class="col-12" href="/campgrounds/<%= campground._id %>/comments/new">Comment</a>
-    </div>
+        <div class="col-md-9">
+            <div class="card">
+                <img class="card-img-top" alt="Responsive image" src="<%= campground.image %>">
+                <div class="card-body">
+                    <h4 class="card-title"><%= campground.name %></h4>
+                    <p class="card-text"><small class="text-muted">Rp 100.000,-/night</small></p>
+                    <p class="card-text"><%= campground.description %></p>
+                </div>
+            </div>
+            <div class="card border-dark mt-3 mb-3">
+                <div class="card-header text-right">
+                    <a class="btn btn-secondary" href="/campgrounds/<%= campground._id %>/comments/new">Leave a Comment</a>
+                </div>
 
-    <ul>
-        <% campground.comments.forEach(item => { %>
-            <li><%= item.text %> -by <%= item.author %></li>
-        <% }) %>
-    </ul>
+                <ul class="list-group list-group-flush">
+                    <% campground.comments.forEach(item => { %>
+                        <li class="list-group-item">
+                            <span><strong><%= item.author %></strong></span>
+                            <span class="float-right">10 days ago</span>
+                            <p><%= item.text %></p>
+                        </li>
+                    <% }) %>
+                </ul>
+            </div>
+            <a href="/campgrounds">Go Back</a>
+        </div>
+    </div>
 </div>
 
 <%- include('../partials/footer') %>
