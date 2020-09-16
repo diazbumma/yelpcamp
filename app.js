@@ -1,8 +1,11 @@
-const express = require('express')
-const app = express()
-const bodyParser = require('body-parser')
-const mongoose = require('mongoose')
-const PORT = 3000
+const   express = require('express'),
+        app = express(),
+        bodyParser = require('body-parser'),
+        mongoose = require('mongoose'),
+        passport = require('passport'),
+        LocalStrategy = require('passport-local'),
+        passportLocalMongoose = require('passport-local-mongoose'),
+        PORT = 3000
 
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({extended: true}))
@@ -11,9 +14,10 @@ mongoose.connect('mongodb://localhost/yelp_camp', {
     useUnifiedTopology: true
 }).then(() => console.log('Connected to yelp_camp DB!')).catch(error => console.log(error.message))
 
-const Campground = require('./models/campground')
-const Comment = require('./models/comment')
-const seed = require('./seeds')
+const   Campground = require('./models/campground'),
+        Comment = require('./models/comment'),
+        User = require('./models/user'),
+        seed = require('./seeds')
 
 seed()
 
