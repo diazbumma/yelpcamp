@@ -1,3 +1,4 @@
+// Dependencies
 const   express = require('express'),
         app = express(),
         bodyParser = require('body-parser'),
@@ -7,6 +8,7 @@ const   express = require('express'),
         passportLocalMongoose = require('passport-local-mongoose'),
         PORT = 3000
 
+// Configuration
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({extended: true}))
 mongoose.connect('mongodb://localhost/yelp_camp', {
@@ -14,6 +16,7 @@ mongoose.connect('mongodb://localhost/yelp_camp', {
     useUnifiedTopology: true
 }).then(() => console.log('Connected to yelp_camp DB!')).catch(error => console.log(error.message))
 
+// Models
 const   Campground = require('./models/campground'),
         Comment = require('./models/comment'),
         User = require('./models/user'),
@@ -21,6 +24,20 @@ const   Campground = require('./models/campground'),
 
 seed()
 
+// Session Configuration
+app.use(require('express-session')({
+    secret: 'Lakad matatag normalin normalin',
+    resave: false,
+    saveUninitialized: false
+}))
+app.use(passport.initialize())
+app.use(passport.session())
+
+passport.use(new LocalStrategy(User.authenticate()))
+passport.serializeUser(User.serializeUser())
+passport.deserializeUser(User.deserializeUser())
+
+// Routes
 app.get('/', function(req, res) {
     res.render('home')
 })
@@ -97,6 +114,22 @@ app.post('/campgrounds/:id/comments', function(req, res) {
                     })
                 }
             })
+        }
+    })
+})
+
+// Auth routes
+app.get('/register', function(req, res) {
+    res.render('register')
+})
+
+app.post('/register', function(req, res) {
+    User.register(new User({username: req.body.username}), req.body.password, function(err, user) {
+        if (err) {
+            console.log(err)
+            res.render('register')
+        } else {
+            res.redirect('/')
         }
     })
 })
