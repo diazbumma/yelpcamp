@@ -127,10 +127,12 @@ app.post('/register', function(req, res) {
     User.register(new User({username: req.body.username}), req.body.password, function(err, user) {
         if (err) {
             console.log(err)
-            res.render('register')
-        } else {
-            res.redirect('/')
+            return res.render('register')
         }
+
+        passport.authenticate('local')(req, res, function() {
+            res.redirect('/campgrounds')
+        })
     })
 })
 
