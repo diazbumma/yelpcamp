@@ -68,7 +68,6 @@ app.post('/campgrounds', function(req, res) {
             console.log(err)
         } else {
             console.log('Inserting data successful')
-            console.log(data)
             res.redirect('/campgrounds')
         }
     })
@@ -84,7 +83,6 @@ app.get('/campgrounds/:id', function(req, res) {
             console.log('Something wrong while retrieving data')
         } else {
             console.log('Retrieving detailed campground info successful')
-            console.log(data)
             res.render('campgrounds/camp_info', {campground: data})
         }
     })

@@ -49,7 +49,6 @@ function seedDB() {
                                         console.log(err)
                                     } else {
                                         console.log('Comment created!')
-                                        console.log(data)
                                     }
                                 })
                             }
