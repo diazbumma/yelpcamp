@@ -145,6 +145,11 @@ app.post('/login', passport.authenticate('local', {
 
 })
 
+app.get('/logout', function(req, res) {
+    req.logout()
+    res.redirect('/')
+})
+
 app.get('*', function(req, res) {
     res.send('Ups, I think you lost buddy..')
 })
