@@ -42,7 +42,7 @@ app.get('/', function(req, res) {
     res.render('home')
 })
 
-app.get('/campgrounds', isLoggedIn, function(req, res) {
+app.get('/campgrounds', function(req, res) {
     Campground.find({}, function(err, data) {
         if (err) {
             console.log('Something wrong while retrieving data')
@@ -77,7 +77,7 @@ app.get('/campgrounds/new', isLoggedIn, function(req, res) {
     res.render('campgrounds/new')
 })
 
-app.get('/campgrounds/:id', isLoggedIn, function(req, res) {
+app.get('/campgrounds/:id', function(req, res) {
     Campground.findById(req.params.id).populate('comments').exec(function(err, data) {
         if (err) {
             console.log('Something wrong while retrieving data')
