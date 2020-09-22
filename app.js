@@ -44,9 +44,9 @@ let campgroundRoutes = require('./routes/campground')
     commentRoutes = require('./routes/comment')
     authRoutes = require('./routes/auth')
 
-app.use(campgroundRoutes)
-app.use(commentRoutes)
-app.use(authRoutes)
+app.use('/campgrounds', campgroundRoutes)
+app.use('/campgrounds/:id/comments', commentRoutes)
+app.use('/', authRoutes)
 
 app.get('/', function(req, res) {
     res.render('home')

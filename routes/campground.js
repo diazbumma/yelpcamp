@@ -1,9 +1,9 @@
 const   express = require('express')
         Campground = require('../models/campground')
 
-let router = express.Router()
+let router = express.Router({mergeParams: true})
 
-router.get('/campgrounds', function(req, res) {
+router.get('/', function(req, res) {
     Campground.find({}, function(err, data) {
         if (err) {
             console.log('Something wrong while retrieving data')
@@ -14,7 +14,7 @@ router.get('/campgrounds', function(req, res) {
     })
 })
 
-router.post('/campgrounds', function(req, res) {
+router.post('/', function(req, res) {
     let name = req.body.name
     let image = req.body.image
     let description = req.body.description
@@ -34,11 +34,11 @@ router.post('/campgrounds', function(req, res) {
     })
 })
 
-router.get('/campgrounds/new', isLoggedIn, function(req, res) {
+router.get('/new', isLoggedIn, function(req, res) {
     res.render('campgrounds/new')
 })
 
-router.get('/campgrounds/:id', function(req, res) {
+router.get('/:id', function(req, res) {
     Campground.findById(req.params.id).populate('comments').exec(function(err, data) {
         if (err) {
             console.log('Something wrong while retrieving data')

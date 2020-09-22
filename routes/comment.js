@@ -2,13 +2,13 @@ const   express = require('express')
         Campground = require('../models/campground')
         Comment = require('../models/comment')
 
-let router = express.Router()
+let router = express.Router({mergeParams: true})
 
-router.get('/campgrounds/:id/comments/new', isLoggedIn, function(req, res) {
+router.get('/new', isLoggedIn, function(req, res) {
     res.render('comments/new', {campgroundId: req.params.id})
 })
 
-router.post('/campgrounds/:id/comments', function(req, res) {
+router.post('/', function(req, res) {
     Campground.findById(req.params.id, function(err, foundCampground) {
         if (err) {
             console.log(err)
