@@ -13,10 +13,22 @@ router.post('/', function(req, res) {
         if (err) {
             console.log(err)
         } else {
-            Comment.create(req.body.comment, function(err, createdComment) {
+            let newComment = {
+                text: req.body.comment.text,
+                author: {
+                    id: req.user._id,
+                    username: req.user.username
+                }
+            }
+
+            Comment.create(newComment, function(err, createdComment) {
                 if (err) {
                     console.log(err)
                 } else {
+                    // another way to save id and username
+                    // createdComment.author.id = req.user._id
+                    // createdComment.author.username = req.user.username
+                    // createdComment.save()
                     foundCampground.comments.push(createdComment)
                     foundCampground.save(function(err, pushedItem) {
                         if (err) {

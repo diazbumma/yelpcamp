@@ -20,7 +20,7 @@ mongoose.connect('mongodb://localhost/yelp_camp', {
 const   User = require('./models/user'),
         seed = require('./seeds')
 
-seed()
+//seed()
 
 // Session Configuration
 app.use(require('express-session')({
