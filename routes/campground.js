@@ -22,7 +22,11 @@ router.post('/', function(req, res) {
     Campground.create({
         name: name, 
         image: image,
-        description: description
+        description: description,
+        author: {
+            id: req.user._id,
+            username: req.user.username
+        }
     }, function(err, data) {
         if (err) {
             console.log('Something went wrong while inserting to the database')
