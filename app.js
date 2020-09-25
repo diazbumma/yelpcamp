@@ -2,6 +2,7 @@
 const   express = require('express'),
         app = express(),
         bodyParser = require('body-parser'),
+        methodOverride = require('method-override'),
         mongoose = require('mongoose'),
         passport = require('passport'),
         LocalStrategy = require('passport-local'),
@@ -11,6 +12,7 @@ const   express = require('express'),
 // Configuration
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({extended: true}))
+app.use(methodOverride('_method'))
 mongoose.connect('mongodb://localhost/yelp_camp', {
     useNewUrlParser: true,
     useUnifiedTopology: true
