@@ -48,12 +48,17 @@ router.get('/:id', function(req, res) {
             console.log('Something wrong while retrieving data')
         } else {
             console.log('Retrieving detailed campground info successful')
-            res.render('campgrounds/camp_info', {campground: data})
+
+            let showButton = false
+            if (req.user) 
+                showButton = data.author.id.equals(req.user._id)
+    
+            res.render('campgrounds/camp_info', {campground: data, showButton: showButton})
         }
     })
 })
 
-router.get('/:id/edit', isLoggedIn, function(req, res) {
+router.get('/:id/edit', allowModify, function(req, res) {
     Campground.findById(req.params.id, function(err, foundCampground) {
         if (err) {
             console.log(err)
@@ -63,7 +68,7 @@ router.get('/:id/edit', isLoggedIn, function(req, res) {
     })
 })
 
-router.put('/:id', function(req, res) {
+router.put('/:id', allowModify, function(req, res) {
     Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(err, foundCampground) {
         if (err) {
             console.log(err)
@@ -74,7 +79,7 @@ router.put('/:id', function(req, res) {
     })
 })
 
-router.delete('/:id', function(req, res) {
+router.delete('/:id', allowModify, function(req, res) {
     Campground.findByIdAndDelete(req.params.id, function(err) {
         if (err) {
             console.log(err)
@@ -90,6 +95,23 @@ function isLoggedIn(req, res, next) {
         return next()
     }
     res.redirect('/login')
+}
+
+function allowModify(req, res, next) {
+    if (req.isAuthenticated()) {
+        Campground.findById(req.params.id, function(err, found) {
+            if (err) {
+                res.redirect('back')
+            } else {
+                if (found.author.id.equals(req.user._id)) 
+                    return next()
+                else
+                    res.redirect('back')
+            }
+        })
+    } else {
+        res.redirect('back')
+    }
 }
 
 module.exports = router
