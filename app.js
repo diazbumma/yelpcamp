@@ -15,7 +15,8 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(methodOverride('_method'))
 mongoose.connect('mongodb://localhost/yelp_camp', {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
 }).then(() => console.log('Connected to yelp_camp DB!')).catch(error => console.log(error.message))
 
 // Models
