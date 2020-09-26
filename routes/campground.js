@@ -49,11 +49,11 @@ router.get('/:id', function(req, res) {
         } else {
             console.log('Retrieving detailed campground info successful')
 
-            let showButton = false
-            if (req.user) 
-                showButton = data.author.id.equals(req.user._id)
+            // let showButton = false
+            // if (req.user) 
+            //     showButton = data.author.id.equals(req.user._id)
     
-            res.render('campgrounds/camp_info', {campground: data, showButton: showButton})
+            res.render('campgrounds/camp_info', {campground: data})
         }
     })
 })
