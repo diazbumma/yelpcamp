@@ -44,6 +44,18 @@ router.post('/', function(req, res) {
     })
 })
 
+router.get('/:commentId/edit', function(req, res) {
+    Comment.findById(req.params.commentId, function(err, found) {
+        if (err) {
+            console.log(err)
+        } else {
+            res.render('comments/edit', {campgroundId: req.params.id, comment: found})
+        }
+    })
+})
+
+//router.put()
+
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
         return next()

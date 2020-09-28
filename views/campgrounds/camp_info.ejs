@@ -37,6 +37,8 @@
                             <span><strong><%= item.author.username %></strong></span>
                             <span class="float-right">10 days ago</span>
                             <p><%= item.text %></p>
+                            <a class="btn btn-warning btn-sm" href="/campgrounds/<%= campground._id %>/comments/<%= item._id %>/edit">Edit</a>
+                            <a class="btn btn-danger btn-sm" href="#">Delete</a>
                         </li>
                     <% }) %>
                 </ul>
