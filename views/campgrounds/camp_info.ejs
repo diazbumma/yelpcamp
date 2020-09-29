@@ -39,7 +39,9 @@
                             <p><%= item.text %></p>
                             <% if (currentUser && item.author.id.equals(currentUser._id)) { %>
                                 <a class="btn btn-warning btn-sm" href="/campgrounds/<%= campground._id %>/comments/<%= item._id %>/edit">Edit</a>
-                                <a class="btn btn-danger btn-sm" href="#">Delete</a>
+                                <form class="d-inline" action="/campgrounds/<%= campground._id %>/comments/<%= item._id %>?_method=DELETE" method="POST">
+                                    <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+                                </form>
                             <% } %>
                         </li>
                     <% }) %>

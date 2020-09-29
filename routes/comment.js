@@ -64,7 +64,15 @@ router.put('/:commentId', allowModify, function(req, res) {
     })
 })
 
-//router.delete()
+router.delete('/:commentId', allowModify, function(req, res) {
+    Comment.findByIdAndDelete(req.params.commentId, function(err) {
+        if (err) {
+            console.log(err)
+        } else {
+            res.redirect('/campgrounds/' + req.params.id)
+        }
+    })
+})
 
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
