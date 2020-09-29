@@ -54,7 +54,15 @@ router.get('/:commentId/edit', allowModify, function(req, res) {
     })
 })
 
-//router.put()
+router.put('/:commentId', allowModify, function(req, res) {
+    Comment.findByIdAndUpdate(req.params.commentId, req.body.comment, function(err, data) {
+        if (err) {
+            console.log(err)
+        } else {
+            res.redirect('/campgrounds/' + req.params.id)
+        }
+    })
+})
 
 //router.delete()
 
