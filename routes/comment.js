@@ -44,7 +44,7 @@ router.post('/', function(req, res) {
     })
 })
 
-router.get('/:commentId/edit', function(req, res) {
+router.get('/:commentId/edit', allowModify, function(req, res) {
     Comment.findById(req.params.commentId, function(err, found) {
         if (err) {
             console.log(err)
@@ -56,11 +56,30 @@ router.get('/:commentId/edit', function(req, res) {
 
 //router.put()
 
+//router.delete()
+
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
         return next()
     }
     res.redirect('/login')
+}
+
+function allowModify(req, res, next) {
+    if (req.isAuthenticated()) {
+        Comment.findById(req.params.commentId, function(err, found) {
+            if (err) {
+                res.redirect('back')
+            } else {
+                if (found.author.id.equals(req.user._id)) 
+                    return next()
+                else
+                    res.redirect('back')
+            }
+        })
+    } else {
+        res.redirect('back')
+    }
 }
 
 module.exports = router
