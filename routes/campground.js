@@ -1,5 +1,6 @@
-const   express = require('express')
-        Campground = require('../models/campground')
+const   express = require('express'),
+        Campground = require('../models/campground'),
+        middleware = require('../middleware')
 
 let router = express.Router({mergeParams: true})
 
@@ -38,7 +39,7 @@ router.post('/', function(req, res) {
     })
 })
 
-router.get('/new', isLoggedIn, function(req, res) {
+router.get('/new', middleware.isLoggedIn, function(req, res) {
     res.render('campgrounds/new')
 })
 
@@ -58,7 +59,7 @@ router.get('/:id', function(req, res) {
     })
 })
 
-router.get('/:id/edit', allowModify, function(req, res) {
+router.get('/:id/edit', middleware.allowModifyCampground, function(req, res) {
     Campground.findById(req.params.id, function(err, foundCampground) {
         if (err) {
             console.log(err)
@@ -68,7 +69,7 @@ router.get('/:id/edit', allowModify, function(req, res) {
     })
 })
 
-router.put('/:id', allowModify, function(req, res) {
+router.put('/:id', middleware.allowModifyCampground, function(req, res) {
     Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(err, foundCampground) {
         if (err) {
             console.log(err)
@@ -79,7 +80,7 @@ router.put('/:id', allowModify, function(req, res) {
     })
 })
 
-router.delete('/:id', allowModify, function(req, res) {
+router.delete('/:id', middleware.allowModifyCampground, function(req, res) {
     Campground.findByIdAndDelete(req.params.id, function(err) {
         if (err) {
             console.log(err)
@@ -89,29 +90,5 @@ router.delete('/:id', allowModify, function(req, res) {
         }
     })
 })
-
-function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next()
-    }
-    res.redirect('/login')
-}
-
-function allowModify(req, res, next) {
-    if (req.isAuthenticated()) {
-        Campground.findById(req.params.id, function(err, found) {
-            if (err) {
-                res.redirect('back')
-            } else {
-                if (found.author.id.equals(req.user._id)) 
-                    return next()
-                else
-                    res.redirect('back')
-            }
-        })
-    } else {
-        res.redirect('back')
-    }
-}
 
 module.exports = router
