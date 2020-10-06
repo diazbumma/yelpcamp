@@ -6,6 +6,7 @@ module.exports = {
         if (req.isAuthenticated()) {
             return next()
         }
+        req.flash('error', 'You must login to do that!')
         res.redirect('/login')
     },
     allowModifyCampground: function(req, res, next) {

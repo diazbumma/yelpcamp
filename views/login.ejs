@@ -1,6 +1,11 @@
 <%- include('partials/header') %>
 
 <div class="container">
+    <% if (message.length > 0) { %>
+        <div class="alert alert-danger col mt-3" role="alert">
+            <%= message %>
+        </div>
+    <% } %>
     <div class="row">
         <div class="col-md-4 mx-auto my-5">
             <h1 class="mb-3">Login</h1>
