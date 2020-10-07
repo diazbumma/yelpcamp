@@ -60,6 +60,7 @@ router.put('/:commentId', middleware.allowModifyComment, function(req, res) {
         if (err) {
             console.log(err)
         } else {
+            req.flash('info', 'Comment edited')
             res.redirect('/campgrounds/' + req.params.id)
         }
     })
@@ -70,6 +71,7 @@ router.delete('/:commentId', middleware.allowModifyComment, function(req, res) {
         if (err) {
             console.log(err)
         } else {
+            req.flash('info', 'Comment deleted')
             res.redirect('/campgrounds/' + req.params.id)
         }
     })
