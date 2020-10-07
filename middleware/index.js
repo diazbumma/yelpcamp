@@ -19,12 +19,12 @@ module.exports = {
                         return next()
                     else
                         req.flash('error', 'You are not allowed to do that!')
-                        res.redirect('back')
+                        res.redirect('/campgrounds/' + req.params.id)
                 }
             })
         } else {
             req.flash('error', 'You must login to do that!')
-            res.redirect('back')
+            res.redirect('/login')
         }
     },
     allowModifyComment: function(req, res, next) {
