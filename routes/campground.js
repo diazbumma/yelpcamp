@@ -67,7 +67,19 @@ router.get('/:id', function(req, res) {
             // if (req.user) 
             //     showButton = data.author.id.equals(req.user._id)
     
-            res.render('campgrounds/camp_info', {campground: data})
+            let flashMsg = {
+                info: {
+                    msg: req.flash('info')
+                },
+                error: {
+                    msg: req.flash('error')
+                }
+            }
+
+            res.render('campgrounds/camp_info', {
+                message: flashMsg,
+                campground: data
+            })
         }
     })
 })

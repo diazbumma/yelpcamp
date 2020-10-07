@@ -18,10 +18,12 @@ module.exports = {
                     if (found.author.id.equals(req.user._id)) 
                         return next()
                     else
+                        req.flash('error', 'You are not allowed to do that!')
                         res.redirect('back')
                 }
             })
         } else {
+            req.flash('error', 'You must login to do that!')
             res.redirect('back')
         }
     },
