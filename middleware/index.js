@@ -36,11 +36,13 @@ module.exports = {
                     if (found.author.id.equals(req.user._id)) 
                         return next()
                     else
-                        res.redirect('back')
+                        req.flash('error', 'You are not allowed to do that!')
+                        res.redirect('/campgrounds/' + req.params.id)
                 }
             })
         } else {
-            res.redirect('back')
+            req.flash('error', 'You must login to do that!')
+            res.redirect('/login')
         }
     }
 }
