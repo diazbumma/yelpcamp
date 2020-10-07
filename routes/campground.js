@@ -10,7 +10,20 @@ router.get('/', function(req, res) {
             console.log('Something wrong while retrieving data')
         } else {
             console.log('Retrieving data successful')
-            res.render('campgrounds/campgrounds', {campgrounds: data})
+
+            let flashMsg = {
+                info: {
+                    msg: req.flash('info')
+                },
+                error: {
+                    msg: req.flash('error')
+                }
+            }
+
+            res.render('campgrounds/campgrounds', {
+                message: flashMsg,
+                campgrounds: data
+            })
         }
     })
 })
