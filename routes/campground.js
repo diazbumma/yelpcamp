@@ -100,6 +100,7 @@ router.put('/:id', middleware.allowModifyCampground, function(req, res) {
             console.log(err)
         } else {
             console.log(foundCampground._id + ' updated')
+            req.flash('info', 'Campground edited')
             res.redirect('/campgrounds/' + req.params.id)
         }
     })
@@ -111,6 +112,7 @@ router.delete('/:id', middleware.allowModifyCampground, function(req, res) {
             console.log(err)
         } else {
             console.log(req.params.id + ' deleted')
+            req.flash('info', 'Campground deleted')
             res.redirect('/campgrounds')
         }
     })
