@@ -15,6 +15,7 @@ app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(methodOverride('_method'))
 app.use(flash())
+app.use(express.static(__dirname + "/public"))
 mongoose.connect('mongodb://localhost/yelp_camp', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
