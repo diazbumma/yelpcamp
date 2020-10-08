@@ -5,14 +5,15 @@ const   express = require('express')
 let router = express.Router()
 
 router.get('/register', function(req, res) {
-    res.render('register')
+    res.render('register', {message: req.flash('error')})
 })
 
 router.post('/register', function(req, res) {
     User.register(new User({username: req.body.username}), req.body.password, function(err, user) {
         if (err) {
-            console.log(err)
-            return res.render('register')
+            //console.log(JSON.stringify(err))
+            req.flash('error', err.message)
+            return res.redirect('/register')
         }
 
         passport.authenticate('local')(req, res, function() {
