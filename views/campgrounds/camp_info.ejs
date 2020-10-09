@@ -24,7 +24,7 @@
                 <img class="card-img-top" alt="Responsive image" src="<%= campground.image %>">
                 <div class="card-body">
                     <h4 class="card-title"><%= campground.name %></h4>
-                    <p class="card-text"><small class="text-muted">Rp 100.000,-/night</small></p>
+                    <p class="card-text"><small class="text-muted">Rp <%= campground.price %>/night</small></p>
                     <p class="card-text"><em>Posted by <%= campground.author.username %></em></p>
                     <p class="card-text"><%= campground.description %></p>
                     <% if (currentUser && campground.author.id.equals(currentUser._id)) { %>

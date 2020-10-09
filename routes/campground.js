@@ -30,11 +30,13 @@ router.get('/', function(req, res) {
 
 router.post('/', function(req, res) {
     let name = req.body.name
+    let price = req.body.price
     let image = req.body.image
     let description = req.body.description
 
     Campground.create({
         name: name, 
+        price: price,
         image: image,
         description: description,
         author: {
